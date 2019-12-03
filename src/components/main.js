@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import ContentLoader from 'react-content-loader';
 
 import { MdPeople, MdLocationCity } from 'react-icons/md';
 import CountryLoader from './loader';
@@ -58,7 +59,7 @@ export default class main extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className="countries-container flex flex-1 flex-wrap">
+                    <div className="countries-container flex flex-1 flex-wrap" style={{ minHeight: '500px' }}>
                         {!isLoading && countriesList && countriesList.length !== 0 ? (
                             countriesList.map((countries, index) => {
                                 return (
@@ -83,7 +84,38 @@ export default class main extends Component {
                                 );
                             })
                         ) : (
-                            <CountryLoader isDark={isDark} />
+                            <>
+                                <CountryLoader isDark={isDark} />
+                                <ContentLoader
+                                    height={500}
+                                    width={400}
+                                    speed={2}
+                                    primaryColor="#303030"
+                                    secondaryColor="#000000"
+                                >
+                                    <rect x="0" y="0" width="400" height="10" />
+
+                                    <rect x="0" y="20" width="20" height="10" />
+                                    <rect x="30" y="20" width="300" height="10" />
+                                    <rect x="340" y="20" width="60" height="10" />
+
+                                    <rect x="0" y="40" width="400" height="10" />
+                                    <rect x="0" y="60" width="400" height="60" />
+
+                                    <rect x="0" y="130" width="20" height="10" />
+                                    <rect x="30" y="130" width="300" height="10" />
+                                    <rect x="340" y="130" width="60" height="10" />
+
+                                    <rect x="0" y="150" width="190" height="80" />
+                                    <rect x="200" y="150" width="200" height="80" />
+
+                                    <rect x="0" y="240" width="70" height="10" />
+                                    <rect x="80" y="240" width="400" height="10" />
+
+                                    <rect x="0" y="260" width="70" height="10" />
+                                    <rect x="80" y="260" width="400" height="10" />
+                                </ContentLoader>
+                            </>
                         )}
                     </div>
                 </div>
