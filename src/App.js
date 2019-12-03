@@ -10,7 +10,7 @@ function App() {
 
     return (
         <section id="restapi-countries" className="antialiased font-sans bg-gray-800 ">
-            {/* <Header /> */}
+            <Header />
             <Main isDark={isDark} />
         </section>
     );
