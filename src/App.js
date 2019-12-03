@@ -1,8 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
+
 import './App.css';
 
+import Header from './components/header';
+import Main from './components/main';
+
 function App() {
-    return <h1>Restpi</h1>;
+    const [isDark, setIsDark] = useState(true);
+
+    return (
+        <section id="restapi-countries" className="antialiased font-sans bg-gray-800 ">
+            {/* <Header /> */}
+            <Main isDark={isDark} />
+        </section>
+    );
 }
 
 export default App;
