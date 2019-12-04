@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { BrowserRouter as Route, Link } from 'react-router-dom';
 
-import { MdPeople, MdLocationCity } from 'react-icons/md';
+import { MdPeople, MdLocationCity, MdLocationOn } from 'react-icons/md';
 import CountryLoader from './loader';
 
 export default class main extends Component {
@@ -134,24 +135,32 @@ export default class main extends Component {
                         <div className="countries-container flex flex-1 flex-wrap">
                             {countriesList.map((countries, index) => {
                                 return (
-                                    <div className="countries  w-full md:w-1/2 xl:w-1/4 p-5" key={index}>
-                                        <div className="bg-gray-700 rounded-lg shadow-lg ">
-                                            <img
-                                                src={countries.flag}
-                                                className="w-full object-cover h-40 rounded-t-lg"
-                                                alt={countries.name}
-                                            />
-                                            <div className="countries-content p-3 ">
-                                                <h2 className="text-2xl mb-2 text-gray-100">{countries.name}</h2>
-                                                <p className="flex items-center text-gray-300">
-                                                    <MdPeople className="mr-2" /> {countries.population}
-                                                </p>
-                                                <p className="flex items-center text-gray-300">
-                                                    <MdLocationCity className="mr-2" /> {countries.capital}
-                                                </p>
+                                    <Link to={{ pathname: `/country/${movie.id}`, state: { movieId: movie.id } }}>
+                                        <div className="countries  w-full md:w-1/2 xl:w-1/4 p-5" key={index}>
+                                            <div className="bg-gray-700 rounded-lg shadow-lg ">
+                                                <img
+                                                    src={countries.flag}
+                                                    className="w-full object-cover h-40 rounded-t-lg"
+                                                    alt={countries.name}
+                                                />
+                                                <div className="countries-content p-3 ">
+                                                    <h2 className="text-2xl mb-2 text-gray-100">{countries.name}</h2>
+                                                    <p className="flex items-center text-gray-300">
+                                                        <MdPeople className="mr-2" title="Population" />
+                                                        {countries.population}
+                                                    </p>
+                                                    <p className="flex items-center text-gray-300">
+                                                        <MdLocationOn className="mr-2" title="Region" />
+                                                        {countries.region}
+                                                    </p>
+                                                    <p className="flex items-center text-gray-300">
+                                                        <MdLocationCity className="mr-2" title="Capital" />
+                                                        {countries.capital}
+                                                    </p>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </Link>
                                 );
                             })}
                         </div>
