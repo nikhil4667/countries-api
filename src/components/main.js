@@ -1,9 +1,24 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { BrowserRouter as Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 import { MdPeople, MdLocationCity, MdLocationOn } from 'react-icons/md';
 import CountryLoader from './loader';
+
+const COUNTRIES = styled.div`
+    transition: 0.3s transform;
+    will-change: transform;
+    &:hover {
+        transform: translateY(-10px);
+    }
+`;
+
+const COUNTRIESTEXT = styled.div`
+    background: ${props => props.theme.themes.header[props.theme.currTheme].background};
+    transition: all 0.3s ease-in-out;
+    color: ${props => props.theme.themes.header[props.theme.currTheme].foreground};
+`;
 
 export default class main extends Component {
     constructor(props) {
@@ -68,9 +83,9 @@ export default class main extends Component {
 
     render() {
         const { isLoading, countriesList, searchQuery } = this.state;
-        const { isDark } = this.props;
+
         return (
-            <main className="mt-20 ">
+            <main className="mt-20">
                 <div className="container mx-auto">
                     <div className="countries-header flex justify-between px-6 my-5">
                         <div className="w-1/3 h-full">
@@ -135,38 +150,46 @@ export default class main extends Component {
                         <div className="countries-container flex flex-1 flex-wrap">
                             {countriesList.map((countries, index) => {
                                 return (
-                                    <Link to={{ pathname: `/country/${movie.id}`, state: { movieId: movie.id } }}>
-                                        <div className="countries  w-full md:w-1/2 xl:w-1/4 p-5" key={index}>
-                                            <div className="bg-gray-700 rounded-lg shadow-lg ">
+                                    <COUNTRIES key={index} className="countries w-full md:w-1/2 xl:w-1/4 p-5">
+                                        <Link
+                                            to={{
+                                                pathname: `/country/${countries.name}`,
+                                                state: { countries: countries },
+                                            }}
+                                        >
+                                            <COUNTRIESTEXT
+                                                theme={this.props.theme}
+                                                className="bg-gray-700 rounded-lg shadow-lg hover:shadow-2xl "
+                                            >
                                                 <img
                                                     src={countries.flag}
                                                     className="w-full object-cover h-40 rounded-t-lg"
                                                     alt={countries.name}
                                                 />
                                                 <div className="countries-content p-3 ">
-                                                    <h2 className="text-2xl mb-2 text-gray-100">{countries.name}</h2>
-                                                    <p className="flex items-center text-gray-300">
+                                                    <h2 className="text-2xl mb-2">{countries.name}</h2>
+                                                    <p className="flex items-center">
                                                         <MdPeople className="mr-2" title="Population" />
                                                         {countries.population}
                                                     </p>
-                                                    <p className="flex items-center text-gray-300">
+                                                    <p className="flex items-center">
                                                         <MdLocationOn className="mr-2" title="Region" />
                                                         {countries.region}
                                                     </p>
-                                                    <p className="flex items-center text-gray-300">
+                                                    <p className="flex items-center">
                                                         <MdLocationCity className="mr-2" title="Capital" />
                                                         {countries.capital}
                                                     </p>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </Link>
+                                            </COUNTRIESTEXT>
+                                        </Link>
+                                    </COUNTRIES>
                                 );
                             })}
                         </div>
                     ) : (
                         <div className="block">
-                            <CountryLoader isDark={isDark} />
+                            <CountryLoader />
                         </div>
                     )}
                 </div>
